@@ -26,10 +26,18 @@ impl<'a> RendererData<'a> {
         //TODO(EX#2): Copy the code from the render() function of goal.rs, player.rs, or enemy.rs
         // and then adapt it to work in this function
         for (&BoundingBox(bounds), &Sprite {texture_id, region: sprite_rect}) in (bounding_boxes, sprites).join() {
+            let (width, height) = canvas.output_size()?;
+            let screen_pos = bounds.center() + Point::new((width/2) as i32, (height/2) as i32);
+            let screen_rect = Rect::from_center(screen_pos, sprite_rect.width() as u32, sprite_rect.height() as u32);
+
+            // Copy the current frame onto the canvas
+            canvas.copy(&textures[texture_id], sprite_rect, screen_rect)?;
+
             //TODO(EX#2): Figure out how to render given the bounding box, texture_id, and
             // sprite_rect. HINT: How do you determine the position based on the bounding box?
             // Go to the specs documentation and look up `Rect`.
         }
+
 
         Ok(())
     }

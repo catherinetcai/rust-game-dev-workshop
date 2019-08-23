@@ -25,5 +25,8 @@ impl<'a> System<'a> for AI {
 
         //TODO(EX#3): Fill in this code based on enemy.rs.
         // HINT: You will need to use the Join trait: https://slide-rs.github.io/specs/08_join.html
+        for (&Enemy{direction_timer, direction_change_delay}, &Velocity{speed, direction}) in (enemies, velocities).join() {
+
+        }
     }
 }
